@@ -1,0 +1,31 @@
+# .github/workflows/render-keeper.yml
+name: Ping
+
+on:
+  schedule:
+    - cron: '* 8-23 * * *'  # Ogni minuto dalle 8:00 alle 23:59 UTC (9-24 italiane)
+  workflow_dispatch:         # Permette avvio manuale
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Siti
+        run: |
+          echo "🕒 $(date)"
+          
+          echo "📡 Ping Dr Jekyll..."
+          if curl -s -f https://marchy02-bloadhunter.hf.space; then
+            echo "✅ Dr Jekyll OK"
+          else
+            echo "❌ Dr Jekyll fallito"
+          fi
+          
+          echo "📡 Ping Mr Hyde..."
+          if curl -s -f https://marchy02-data-fetcher-lib.hf.space; then
+            echo "✅ Mr Hyde OK"
+          else
+            echo "❌ Mr Hyde fallito"
+          fi
+          
+          echo "📊 Entrambi i ping completati"
